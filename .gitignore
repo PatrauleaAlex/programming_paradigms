@@ -23,3 +23,6 @@ hs_err_pid*
 /Loan_Manager_PP/nbproject/private/
 /Loan_Manager_pp/nbproject/private/
 /Loan_Manager_pp/build/
+
+# proj properties
+/Loan_Manager_pp/nbproject/project.properties
