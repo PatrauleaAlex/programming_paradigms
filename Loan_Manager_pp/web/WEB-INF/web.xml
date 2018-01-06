@@ -12,7 +12,10 @@
         <servlet-name>RegisterController</servlet-name>
         <servlet-class>controllers.RegisterController</servlet-class>
     </servlet>
-    
+    <servlet>
+        <servlet-name>MakeLoanController</servlet-name>
+        <servlet-class>controllers.MakeLoanController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogInController</servlet-name>
         <url-pattern>/LogInController</url-pattern>
@@ -24,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/RegisterController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MakeLoanController</servlet-name>
+        <url-pattern>/MakeLoanController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -1,4 +1,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@page import="dao.LoanDAO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="domain.Loan"%>
+
+
+<%
+    LoanDAO loanDAO = LoanDAO.getInstance();
+    ArrayList<domain.Loan> loans = loanDAO.getLoans((String) request.getSession().getAttribute("user"));
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,6 +34,7 @@
 
                 <ul>
                     <li><a href="Home.jsp">Home</a></li>
+                    <li><a href="MakeLoan.jsp">Make Loan</a></li>
                     
                     <li id = "tail"><a href="LogOutController">Logout</a></li>
                 </ul>
@@ -37,7 +48,17 @@
             </nav>
             
             <div id="center">
+                <%if (request.getSession().getAttribute("user") != null) {%>
+                                <%for (Loan l : loans) {%>
+                <div class="form-element">
+                    <input type="radio" name="bank" id ="bank" value="<%=l.getId()%>"><%=l.toString()%><br>
+                </div>
+                <%}%>
                 
+                
+                
+                
+                <%}%>
             </div>
             <div id="footer">PP</div>
         </div>

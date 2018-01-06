@@ -5,7 +5,17 @@
  */
 package dao;
 
+import domain.Bank;
+import domain.User;
+import domain.Loan;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import utils.DataBase;
 
 /**
  *
@@ -27,5 +37,75 @@ public class LoanDAO {
 
     };
     
+    public boolean insertLoan( int uId, int bId, int amount, int rate, int noM){
+        conn = DataBase.getConnection();
+        
+        int tbp = amount + ((amount * rate) / 100);
+        try {
+            PreparedStatement statement = conn.prepareStatement("insert into loans values (default, ?, ?, ?, ? ,?, ?, ?, ?)");
+            statement.setInt(1, uId);
+            statement.setInt(2, bId);
+            statement.setInt(3, amount);
+            statement.setInt(4, rate);
+            statement.setInt(5, noM);
+            statement.setInt(6, 0);
+            statement.setInt(7, tbp);
+            statement.setInt(8, 0);
+            statement.executeUpdate();
+            conn.commit();
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(LoanDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+        
+    }
     
+    public ArrayList<Loan> getLoans(String username){
+        conn=DataBase.getConnection();
+        ArrayList<Loan> loans = new ArrayList<>();
+        try {
+            PreparedStatement prepStmt = conn.prepareStatement("select \n" +
+                                                                "	banks.id as bank_id,\n" +
+                                                                "	banks.name as bank_name, \n" +
+                                                                "	banks.address as bank_address, \n" +
+                                                                "	loans.id as l_id,\n" +
+                                                                "	loans.ammount as am,\n" +
+                                                                "	loans.rate as rt,  \n" +
+                                                                "	loans.toBePaid as tbp, \n" +
+                                                                "	loans.noMonths as nomon, \n" +
+                                                                "	loans.paid as pd,\n" +
+                                                                "	loans.completed as comp\n" +
+                                                                "from loans\n" +
+                                                                "	left join banks on banks.id = loans.bank_id\n" +
+                                                                "	left join users on users.id = loans.user_id\n" +
+                                                                "where users.username = ?;");
+            prepStmt.setString(1, username);
+            
+            ResultSet rs = prepStmt.executeQuery();
+            while (rs.next()) {
+                Loan l = new Loan();
+                l.setId(rs.getInt("l_id"));
+                l.setAmmount(rs.getInt("am"));
+                l.setRate(rs.getInt("rt"));
+                l.setToBePaid(rs.getInt("tbp"));
+                l.setNoMonths(rs.getInt("nomon"));
+                l.setPaid(rs.getInt("pd"));
+                l.setCompleted(rs.getInt("comp"));
+                Bank b;
+                b = new Bank(rs.getString("bank_name"), rs.getString("bank_address"),rs.getInt("bank_id"));
+                l.setBank(b);
+                User u = new User();
+                u.setUsername(username);
+                l.setUser(u);
+                loans.add(l);
+            }
+            prepStmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return loans;
+    }
 }

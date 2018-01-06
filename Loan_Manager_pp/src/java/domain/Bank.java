@@ -11,17 +11,29 @@ package domain;
  */
 public class Bank {
     
+    private int id;
     private String name;
     private String address;
 
     public Bank() {
     }
 
-    public Bank(String name, String address) {
+    public Bank(String name, String address, int id) {
+        this.id = id;
         this.name = name;
         this.address = address;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
+    
     public String getName() {
         return name;
     }
@@ -40,7 +52,7 @@ public class Bank {
 
     @Override
     public String toString() {
-        return "Bank{" + ", name=" + name + ", address=" + address + '}';
+        return name + ", at address: " + address;
     }
     
     

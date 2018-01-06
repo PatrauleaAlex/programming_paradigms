@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author Andrei
  */
 public class Loan {
-    
+    private int id;
     private User user;
     private Bank bank;
     private int ammount;
@@ -25,8 +25,8 @@ public class Loan {
     public Loan() {
     }
 
-    public Loan( User user, Bank bank, int ammount, int rate, int noMonths, int paid, int toBePaid, int completed) {
-        
+    public Loan( int id, User user, Bank bank, int ammount, int rate, int noMonths, int paid, int toBePaid, int completed) {
+        this.id = id;
         this.user = user;
         this.bank = bank;
         this.ammount = ammount;
@@ -36,6 +36,16 @@ public class Loan {
         this.toBePaid = toBePaid;
         this.completed = completed;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
 
     public User getUser() {
         return user;
