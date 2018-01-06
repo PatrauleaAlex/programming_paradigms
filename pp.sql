@@ -1,5 +1,7 @@
 CREATE DATABASE `pp_loan_manager`;
 
+USE `pp_loan_manager`;
+
 DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
@@ -32,7 +34,7 @@ CREATE TABLE `loans` (
   `user_id` int(11) NOT NULL,
   `bank_id` int(11) NOT NULL,
   `ammount` int(6) not null,
-  `rate` int(1) not null,
+  `rate` int(2) not null,
   `noMonths` int(3) not null,
   `paid` int(6),
   `toBePaid` int(6),
@@ -58,6 +60,4 @@ CREATE TABLE `payments` (
   CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`loan_id`) REFERENCES `loans` (`id`)
 ) engine=InnoDB;
   
-  
-
-  
+INSERT INTO `banks` VALUES (default, "BCR", "Address 1"), (default, "BRD", "Address 2"), (default, "Raiffeisen", "Address 3"), (default, "Libra Bank", "Address 4"), (default, "ING", "Address 5");
