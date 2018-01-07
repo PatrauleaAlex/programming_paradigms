@@ -21,7 +21,7 @@ public class DataBase {
             try {
             String url = "jdbc:mysql://localhost/pp_loan_manager";
             String user = "root";
-            String password = "root";
+            String password = "qwerty";
             String driver="com.mysql.jdbc.Driver";
             Class.forName(driver);
             conn = DriverManager.getConnection(url, user, password);

@@ -1,24 +1,25 @@
-<%@page import="domain.Loan"%>
-<%@page import="dao.LoanDAO"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="domain.Payment"%>
+<%-- 
+    Document   : Profile
+    Created on : May 18, 2016, 3:13:51 PM
+    Author     : alex
+--%>
 
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="dao.UserDAO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="domain.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 
 <%
-    LoanDAO loanDAO = LoanDAO.getInstance();
-    ArrayList<Loan> loans = loanDAO.getLoans((String) request.getSession().getAttribute("user"));
+    UserDAO userDAO = UserDAO.getInstance();
+    domain.User u = userDAO.getUserInfo((String) request.getSession().getAttribute("user"));
 %>
-
-<!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="style.css" type="text/css"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <title>Make Payment</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width">
+        <title>Profile</title>
     </head>
     <body>
         <div id ="left">
@@ -40,11 +41,13 @@
                     <li><a href="MakePayment.jsp">Make Payment</a></li>
                     <li><a href="Payments.jsp">Payments</a></li>
                     <li><a href="Profile.jsp">Profile</a></li>
+                    
                     <li id = "tail"><a href="LogOutController">Logout</a></li>
                 </ul>
                 <%} else {%>
                 <ul>
                     <li><a href="Home.jsp">Home</a></li>
+                   
                     <li id = "tail" ><a href="Login.jsp">Log In</a></li>
                     <li id = "tail" ><a href="Registration.jsp">Register</a></li>
                 </ul>
@@ -52,36 +55,47 @@
             </nav>
 
             <div id="center">
-                <h2>Make Payment</h2>   
-                <form method="post" action="MakePaymentController" id="makePayment">
-                    <div class="form-element">
-                        <label>Select Loan to pay:</label>
-                    </div>
-                    <select name="loan" form="makePayment">
-                        <%for (Loan t : loans) {%>
-                        <option value="<%=t.getId()%>"><%=t.toString()%></option>
+                <h1>User Info:</h1>
+                <form method="post">
 
-                        <%}%>
-                    </select>
                     <div class="form-element">
-                        <label for="amount">Amount: </label>
-                        <input type="number" min="1" name="amount" id="amount" required>
+                        <label>Username: <%= u.getUsername()%></label>
                     </div>
-                    <div class="form-element">
-                        <label for="date">Date: </label>
-                        <input type="text" name="date" id="date" required>
-                    </div>
-                    <div class="form-element">
-                        <label for="info">Info: </label>
-                        <input type="text" name="info" id="info" required>
-                    </div>
-                    <div class="form-element">
-                        <input type="submit" value="Submit">
-                        <input type="reset" value="Reset">
-                    </div>                 
 
-                </form>
+                    <div class="form-element">
+                        <label>First Name: <%= u.getFname()%></label>
+                    </div>
+                    
+                    <div class="form-element">
+                        <label>Last Name: <%= u.getLname()%> </label>
+                    </div>          
 
+                    <div class="form-element">
+                        <label>Phone number: <%= u.getPhone()%></label>
+                    </div>
+
+                    <div class="form-element">
+                        <label>Email: <%= u.getEmail()%></label>
+                    </div>
+                    
+                    <div class="form-element">
+                        <label style="color:red">*** Average Payment Value:  <%= u.getEmail()%></label>
+                    </div>
+                    
+                    <div class="form-element">
+                        <label style="color:red">*** Max Loan Value: <%= u.getEmail()%></label>
+                    </div>
+                    
+                    <div class="form-element">
+                        <label style="color:red">*** Average Payment Value: <%= u.getEmail()%></label>
+                    </div>
+                    
+                    <div class="form-element">
+                        <label style="color:red">*** Max Payment Value: <%= u.getEmail()%></label>
+                    </div>
+
+                </form>  
+               
             </div>
             <div id="footer">PP</div>
         </div>

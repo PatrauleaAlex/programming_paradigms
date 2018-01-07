@@ -130,29 +130,23 @@ public class LoanDAO {
             if((toBePaid - amount) <= 0){
                 completed = 1;
             }
-            
-//            prepStmt = conn.prepareStatement("select paid from loans where id = ?;");
-//            prepStmt.setInt(1, loanId);
-//            
-//            rs = prepStmt.executeQuery();
-//            
-//            while(rs.next()){
-//                paid = rs.getInt("paid");
-//            }
+
             
             if(completed == 1){
                 prepStmt = 
-                        conn.prepareStatement("update loans set paid=paid + ?, toBePaid = toBePaid-?, completed = 1;");
+                        conn.prepareStatement("update loans set paid=paid + ?, toBePaid = ?, completed = 1 where id = ?;");
                 prepStmt.setInt(1, amount);
-                prepStmt.setInt(2, amount);
+                prepStmt.setInt(2, 0);
+                prepStmt.setInt(3, loanId);
                 prepStmt.executeUpdate();
                 conn.commit();
                 prepStmt.close();
             }else{
                 prepStmt = 
-                        conn.prepareStatement("update loans set paid=paid + ?, toBePaid = toBePaid-?, completed = 0;");
+                        conn.prepareStatement("update loans set paid=paid + ?, toBePaid = toBePaid-?, completed = 0 where id = ?;");
                 prepStmt.setInt(1, amount);
                 prepStmt.setInt(2, amount);
+                prepStmt.setInt(3, loanId);
                 prepStmt.executeUpdate();
                 conn.commit();
                 prepStmt.close();

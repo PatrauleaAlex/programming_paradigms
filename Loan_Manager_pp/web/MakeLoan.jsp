@@ -19,6 +19,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="style.css" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <title>Make Loan</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
@@ -32,15 +33,17 @@
 
         <div id="content">
             <div class="header">
-
+                <h1 class="header-text">Loan MANAGER</h1>
             </div>
             <nav>
                 <%if (request.getSession().getAttribute("user") != null) {%>
 
                 <ul>
                     <li><a href="Home.jsp">Home</a></li>
+                    <li><a href="MakeLoan.jsp">Make Loan</a></li>
                     <li><a href="MakePayment.jsp">Make Payment</a></li>
                     <li><a href="Payments.jsp">Payments</a></li>
+                    <li><a href="Profile.jsp">Profile</a></li>
                     <li id = "tail"><a href="LogOutController">Logout</a></li> 
                </ul>
                 <%} else {%>

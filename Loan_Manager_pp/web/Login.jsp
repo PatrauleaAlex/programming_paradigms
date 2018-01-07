@@ -5,6 +5,7 @@
 
     <head>
         <link rel="stylesheet" href="style.css" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <title>Login</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
@@ -18,7 +19,7 @@
 
         <div id="content">
             <div class="header">
-
+                <h1 class="header-text"> Loan MANAGER</h1>
             </div>
             <nav>
                 <%if (request.getSession().getAttribute("user") != null) {%>
