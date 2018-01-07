@@ -5,6 +5,8 @@
 --%>
 
 <%@page import="dao.UserDAO"%>
+<%@page import="dao.PaymentDAO"%>
+<%@page import="dao.LoanDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,6 +15,8 @@
 <%
     UserDAO userDAO = UserDAO.getInstance();
     domain.User u = userDAO.getUserInfo((String) request.getSession().getAttribute("user"));
+    LoanDAO loanDAO = LoanDAO.getInstance();
+    PaymentDAO paymentDAO = PaymentDAO.getInstance();
 %>
 <html>
     <head>
@@ -79,19 +83,27 @@
                     </div>
                     
                     <div class="form-element">
-                        <label style="color:red">*** Average Payment Value:  <%= u.getEmail()%></label>
+                        <label style="color:red">*** Average Loan Value:  <%= loanDAO.getAverage(u.getUsername())%></label>
                     </div>
                     
                     <div class="form-element">
-                        <label style="color:red">*** Max Loan Value: <%= u.getEmail()%></label>
+                        <label style="color:red">*** Max Loan Value: <%= loanDAO.getMax(u.getUsername())%></label>
                     </div>
                     
                     <div class="form-element">
-                        <label style="color:red">*** Average Payment Value: <%= u.getEmail()%></label>
+                        <label style="color:red">*** Min Loan Value: <%= loanDAO.getMin(u.getUsername())%></label>
                     </div>
                     
                     <div class="form-element">
-                        <label style="color:red">*** Max Payment Value: <%= u.getEmail()%></label>
+                        <label style="color:red">*** Average Payment Value: <%= paymentDAO.getAverage(u.getUsername())%></label>
+                    </div>
+                    
+                    <div class="form-element">
+                        <label style="color:red">*** Max Payment Value: <%= paymentDAO.getMax(u.getUsername())%></label>
+                    </div>
+                    
+                    <div class="form-element">
+                        <label style="color:red">*** Min Payment Value: <%= paymentDAO.getMin(u.getUsername())%></label>
                     </div>
 
                 </form>  

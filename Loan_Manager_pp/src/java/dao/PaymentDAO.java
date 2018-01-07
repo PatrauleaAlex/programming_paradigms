@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.OptionalDouble;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.DataBase;
@@ -82,6 +83,25 @@ public class PaymentDAO {
             ex.printStackTrace();
         }
         return payments;
+    }
+    
+    //functional part
+    public double getAverage(String username){
+        OptionalDouble average = getPayments(username).stream().mapToDouble(p -> p.getAmmount()).average();
+        
+        return average.isPresent() ? average.getAsDouble() :0;
+    }
+    
+    public double getMin(String username){
+        OptionalDouble min = getPayments(username).stream().mapToDouble(p -> p.getAmmount()).min();
+        
+        return min.isPresent() ? min.getAsDouble() :0;
+    }
+    
+    public double getMax(String username){
+        OptionalDouble max = getPayments(username).stream().mapToDouble(p -> p.getAmmount()).max();
+        
+        return max.isPresent() ? max.getAsDouble() :0;
     }
     
 }

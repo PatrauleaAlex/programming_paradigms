@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.OptionalDouble;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.DataBase;
@@ -159,4 +160,24 @@ public class LoanDAO {
         
         return false;
     }
+    
+    //functional part
+    public double getAverage(String username){
+        OptionalDouble average = getLoans(username).stream().mapToDouble(l -> l.getAmmount()).average();
+        
+        return average.isPresent() ? average.getAsDouble() :0;
+    }
+    
+    public double getMax(String username){
+        OptionalDouble max = getLoans(username).stream().mapToDouble(l -> l.getAmmount()).max();
+        
+        return max.isPresent() ? max.getAsDouble() :0;
+    }
+    
+    public double getMin(String username){
+        OptionalDouble max = getLoans(username).stream().mapToDouble(l -> l.getAmmount()).max();
+        
+        return max.isPresent() ? max.getAsDouble() :0;
+    }
+        
 }
