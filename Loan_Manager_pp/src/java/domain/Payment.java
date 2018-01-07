@@ -60,7 +60,7 @@ public class Payment {
 
     @Override
     public String toString() {
-        return "Payment{" + "loan=" + loan + ", ammount=" + ammount + ", date=" + date + ", info=" + info + '}';
+        return "Payment: " + "ammount = " + ammount + ", date = " + date + ", info = " + info + ';';
     }
     
     

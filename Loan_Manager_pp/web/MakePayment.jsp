@@ -1,25 +1,21 @@
-<%-- 
-    Document   : makeLoan
-    Created on : Jan 6, 2018, 3:36:50 PM
-    Author     : alex
---%>
-<%@page import="dao.BankDAO"%>
+<%@page import="domain.Loan"%>
+<%@page import="dao.LoanDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="domain.Bank"%>
+<%@page import="domain.Payment"%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-
 <%
-    BankDAO bankDao = BankDAO.getInstance();
-    ArrayList<domain.Bank> banks = bankDao.getBanks();
+    LoanDAO loanDAO = LoanDAO.getInstance();
+    ArrayList<Loan> loans = loanDAO.getLoans((String)request.getSession().getAttribute("user"));
 %>
+
 <!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" href="style.css" type="text/css"/>
-        <title>Make Loan</title>
+        <title>Make Payment</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
     </head>
@@ -39,10 +35,10 @@
 
                 <ul>
                     <li><a href="Home.jsp">Home</a></li>
-                    <li><a href="MakePayment.jsp">Make Payment</a></li>
+                    <li><a href="MakeLoan.jsp">Make Loan</a></li>
                     <li><a href="Payments.jsp">Payments</a></li>
-                    <li id = "tail"><a href="LogOutController">Logout</a></li> 
-               </ul>
+                    <li id = "tail"><a href="LogOutController">Logout</a></li>
+                </ul>
                 <%} else {%>
                 <ul>
                     <li><a href="Home.jsp">Home</a></li>
@@ -53,27 +49,24 @@
             </nav>
             
             <div id="center">
-            <h2>Make Loan</h2>   
-            <form method="post" action="MakeLoanController">
+            <h2>Make Payment</h2>   
+            <form method="post" action="MakePaymentController">
+                <%for (Loan t : loans) {%>
                 <div class="form-element">
-                    <label>Bank:</label>
-                </div>
-                <%for (Bank t : banks) {%>
-                <div class="form-element">
-                    <input type="radio" name="bank" id ="bank" value="<%=t.getId()%>"><%=t.toString()%><br>
+                    <input type="radio" name="loan" id ="loan" value="<%=t.getId()%>"><%=t.toString()%><br>
                 </div>
                 <%}%>
                 <div class="form-element">
                     <label for="amount">Amount: </label>
-                    <input type="number" min="100" max="999999" name="amount" id="amount" required>
+                    <input type="number" min="1" name="amount" id="amount" required>
                 </div>
                 <div class="form-element">
-                    <label for="rate">Rate: </label>
-                    <input type="number" min="0" max="99" name="rate" id="rate" required>
+                    <label for="date">Date: </label>
+                    <input type="text" name="date" id="date" required>
                 </div>
-		<div class="form-element">
-                    <label for="nomon">Number of Months:</label>
-                    <input type="number" min="6" max="240" name="nomon" id="nomon" required>
+                <div class="form-element">
+                    <label for="info">Info: </label>
+                    <input type="text" name="info" id="info" required>
                 </div>
                 <div class="form-element">
                     <input type="submit" value="Submit">

@@ -1,20 +1,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%@page import="dao.LoanDAO"%>
+<%@page import="dao.PaymentDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="domain.Loan"%>
+<%@page import="domain.Payment"%>
 
 
 <%
-    LoanDAO loanDAO = LoanDAO.getInstance();
-    ArrayList<domain.Loan> loans = loanDAO.getLoans((String) request.getSession().getAttribute("user"));
+    PaymentDAO paymentDAO = PaymentDAO.getInstance();
+    ArrayList<domain.Payment> payments = paymentDAO.getPayments((String) request.getSession().getAttribute("user"));
 %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="style.css" type="text/css"/>
-        <title>Home</title>
+        <title>Payments</title>
       
     </head>
     <body>
@@ -36,7 +36,6 @@
                     <li><a href="Home.jsp">Home</a></li>
                     <li><a href="MakeLoan.jsp">Make Loan</a></li>
                     <li><a href="MakePayment.jsp">Make Payment</a></li>
-                    <li><a href="Payments.jsp">Payments</a></li>
                     
                     <li id = "tail"><a href="LogOutController">Logout</a></li>
                 </ul>
@@ -51,9 +50,9 @@
             
             <div id="center">
                 <%if (request.getSession().getAttribute("user") != null) {%>
-                                <%for (Loan l : loans) {%>
+                                <%for (Payment l : payments) {%>
                 <div class="form-element">
-                    <input type="radio" name="bank" id ="bank" value="<%=l.getId()%>"><%=l.toString()%><br>
+                    <input type="radio" name="payment" id ="payment" value="<%=l.getInfo()%>"><%=l.toString()%><br>
                 </div>
                 <%}%>
                 

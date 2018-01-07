@@ -103,7 +103,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "username=" + username + ", password=" + password + ", fname=" + fname + ", lname=" + lname + ", phone=" + phone + ", email=" + email + ", gender=" + gender + ", newsletter=" + newsletter + ", admin=" + admin + '}';
+        return "User: " + "username = " + username + ", password = " + password + ", fname = " + fname + ", lname = " + lname + ", phone = " + phone + ", email = " + email + ", gender = " + gender + ", newsletter = " + newsletter + ", admin = " + admin + ';';
     }
 
     

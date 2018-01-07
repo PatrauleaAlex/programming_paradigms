@@ -113,7 +113,7 @@ public class Loan {
 
     @Override
     public String toString() {
-        return "Loan{" + "user=" + user + ", bank=" + bank + ", ammount=" + ammount + ", rate=" + rate + ", noMonths=" + noMonths + ", paid=" + paid + ", toBePaid=" + toBePaid + ", completed=" + completed + '}';
+        return "Loan of " + "user = " + user + ", bank = " + bank + ", ammount = " + ammount + ", rate = " + rate + ", noMonths = " + noMonths + ", paid = " + paid + ", toBePaid = " + toBePaid + ", completed = " + completed + ";" ;
     }
     
     

@@ -85,6 +85,7 @@ public class LoanDAO {
             prepStmt.setString(1, username);
             
             ResultSet rs = prepStmt.executeQuery();
+            
             while (rs.next()) {
                 Loan l = new Loan();
                 l.setId(rs.getInt("l_id"));
@@ -102,10 +103,66 @@ public class LoanDAO {
                 l.setUser(u);
                 loans.add(l);
             }
+            
             prepStmt.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return loans;
+    }
+    
+    public boolean updateLoan(int loanId, int amount){
+        conn = DataBase.getConnection();
+        try {
+            int toBePaid = 0;
+            int completed = 0;
+            int paid = 0;
+            
+            PreparedStatement prepStmt = conn.prepareStatement("select toBePaid from loans where id = ?;");
+            prepStmt.setInt(1, loanId);
+            
+            ResultSet rs = prepStmt.executeQuery();
+            
+            while(rs.next()){
+                toBePaid = rs.getInt("toBePaid");
+            }
+            
+            if((toBePaid - amount) <= 0){
+                completed = 1;
+            }
+            
+//            prepStmt = conn.prepareStatement("select paid from loans where id = ?;");
+//            prepStmt.setInt(1, loanId);
+//            
+//            rs = prepStmt.executeQuery();
+//            
+//            while(rs.next()){
+//                paid = rs.getInt("paid");
+//            }
+            
+            if(completed == 1){
+                prepStmt = 
+                        conn.prepareStatement("update loans set paid=paid + ?, toBePaid = toBePaid-?, completed = 1;");
+                prepStmt.setInt(1, amount);
+                prepStmt.setInt(2, amount);
+                prepStmt.executeUpdate();
+                conn.commit();
+                prepStmt.close();
+            }else{
+                prepStmt = 
+                        conn.prepareStatement("update loans set paid=paid + ?, toBePaid = toBePaid-?, completed = 0;");
+                prepStmt.setInt(1, amount);
+                prepStmt.setInt(2, amount);
+                prepStmt.executeUpdate();
+                conn.commit();
+                prepStmt.close();
+            }
+            
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(LoanDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
     }
 }
