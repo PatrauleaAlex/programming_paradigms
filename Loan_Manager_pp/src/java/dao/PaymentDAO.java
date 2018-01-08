@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.OptionalDouble;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,6 +83,15 @@ public class PaymentDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        
+        //lambda use
+        payments.sort(new Comparator<Payment>() {
+            @Override
+            public int compare(Payment o1, Payment o2) {
+                return o2.getAmmount() - o1.getAmmount();
+            }
+
+        });
         return payments;
     }
     
